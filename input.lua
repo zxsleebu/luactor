@@ -1,0 +1,1 @@
+_G.print("try to decrypt me")

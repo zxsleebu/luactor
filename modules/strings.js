@@ -27,7 +27,7 @@ exports.protect_strings = string => {
         var range = obj[0], value = obj[1];
         var s = strings.find(x => x.value == value);
         var offset = string.length - result.length;
-        result = replaceRange(result, range[0] - offset, range[1] - offset, var_name + "[" + (s.index + 1) + "]");
+        result = replaceRange(result, range[0] - offset, range[1] - offset, " " + var_name + "[" + (s.index + 1) + "] ");
     }
     var encstr = `local ${var_name} = {`
     var sorted_strings = [];

@@ -2,8 +2,8 @@ const { readFileSync } = require('fs');
 exports.antidecompiler = function(string){
     console.log("Injecting anti-decompiler...");
     const strings = {
-        UPPER: `upper string`,
-        BOTTOM: `bottom string`,
+        UPPER: '',//`upper string`,
+        BOTTOM: '',//`bottom string`,
     }
     const repeat_count = 300;
     const zeroull = "(" + "0ULL and ".repeat(repeat_count) + "0ULL)";

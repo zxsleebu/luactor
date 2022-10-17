@@ -6,6 +6,7 @@ local ptc___begging = [[cumcall fuckall sorryforgottohidepcall
 
 --! this file was protected by luactor alpha
 --! github.com/zxsleebu/luactor
+--! this repo may be hidden, because the obfuscator is on early stages
 
 --[[
 @UPPER@

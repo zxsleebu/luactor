@@ -39,6 +39,6 @@ do
     end
     ---@diagnostic disable: undefined-global
     for c = 1, #enc_strings do
-        enc_strings[c] = dec(enc_strings[c], "@XOR_KEY@")
+        enc_strings[c] = dec(enc_strings[c], "@XOR_KEY@" .. tostring(c))
     end
 end

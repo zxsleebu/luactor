@@ -3,7 +3,7 @@ const { readFileSync } = require('fs');
 const stringEcnrypt = (a, b) => {
     let s = [];
     for (let i = 0; i < a.length; i++)
-        s.push((a.charCodeAt(i) ^ b.charCodeAt((i + 1) % (b.length - 1))).toString(16).toUpperCase())
+        s.push((a.charCodeAt(i) ^ b.charCodeAt((i + 1) % b.length)).toString(16).toUpperCase())
     return s.join("G")
 };
 const replaceRange = (s, start, end, repl) => s.substring(0, start) + repl + s.substring(end);

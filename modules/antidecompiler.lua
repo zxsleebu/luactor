@@ -6,7 +6,7 @@ local ptc___begging = [[cumcall fuckall sorryforgottohidepcall
 
 --! this file was protected by luactor alpha
 --! github.com/zxsleebu/luactor
---! this repo may be hidden, because the obfuscator is on early stages
+--! this repo may be hidden, because the obfuscator is on its early stages
 
 --[[
 @UPPER@
@@ -22,9 +22,9 @@ local ptc___begging = [[cumcall fuckall sorryforgottohidepcall
                     "\n$$$ luactor protector technologies $$$\n",
                     "\n$$$ ultra mega private obfuscator $$$\n",
                     "\nclosethisfuckingfileyounigga\n",
-                    "\nstop scrolling thru the fucking code faggot\n",
+                    "\nstop scrolling thru the fucking code you faggot\n",
                     "\ni recommend you to go to scroll your father's balls\n",
-                    "\nyou're still bad to crack this\n",
+                    "\nyou're still not good enough to crack this\n",
                     "\nnot enough iq even to decrypt the strings?\n",
                     "\nsadly you will not find anything interesting in here\n",
                     "\nyou should really go jump of the cliff\n",

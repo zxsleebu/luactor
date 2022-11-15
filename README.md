@@ -6,11 +6,13 @@ simple lua protector for basic security
   Breaks decompiler, so you don't have to care that somebody decryptins your script
   
 - ### String encryption
-  Your strings will be safe, without performance impact.
+  Your strings will be safe, without performance impact (upd: now im not sure about it).
   
 - ### Object indexing hider
   When you do `object.index` (`io.read` for ex.) the protector hides it.
-  You can specify objects that you would like to hide
+
+- ### Global variables protection
+  Nobody is gonna see your globals :)
   
 # Run
  `node .\main.js .\input.lua .\build.lua`

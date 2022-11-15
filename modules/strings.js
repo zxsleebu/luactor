@@ -9,10 +9,13 @@ const stringEcnrypt = (a, b) => {
 const replaceRange = (s, start, end, repl) => s.substring(0, start) + repl + s.substring(end);
 exports.protect_strings = string => {
     console.log("Protecting strings...");
+    string = string.replaceAll(/((\[\[)([\s\S]+?|)(\]\]))/g, (match, p1) => {
+        return `(${p1})`
+    })
     var parser = parse(string, { wait: true });
     var strings = [], ranges = [], index = 0, result = string + "";
     const var_name = "enc_strings";
-    const xor_key = "123456789";
+    const xor_key = "42G41G5DG5BG42";
     var decryptor_lua = readFileSync("./modules/strings.lua", "utf-8").replaceAll("@XOR_KEY@", xor_key);
     do {
         var s = parser.lex()

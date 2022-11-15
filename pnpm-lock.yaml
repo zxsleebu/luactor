@@ -1,0 +1,27 @@
+lockfileVersion: 5.4
+
+specifiers:
+  date-and-time: ^2.3.1
+  luamin: ^1.0.4
+
+dependencies:
+  date-and-time: 2.4.1
+  luamin: 1.0.4
+
+packages:
+
+  /date-and-time/2.4.1:
+    resolution: {integrity: sha512-fG+ClATev+wHryqxOoGcTTegr5RhYE+tz/XHUkTQ/zvpWqQ90oOxjOhuMQ02bw87Oy9N3qBENCHHHSKdWJjgTg==}
+    dev: false
+
+  /luamin/1.0.4:
+    resolution: {integrity: sha512-z1h0bclRD/QGsS/Dz4Skp9z0qPTmmm+IKcrCapGmdTczPWVdN9f9jk6WqkNrcifQr8+n9Pzsm9WkwpOH1JBUAQ==}
+    hasBin: true
+    dependencies:
+      luaparse: 0.2.1
+    dev: false
+
+  /luaparse/0.2.1:
+    resolution: {integrity: sha512-VKBcryd5nJte4ZNR29NOk8F/UkMipjeb4yoxcSS51z6QAzg9DXUC2WsfLniS0J1eh3pr/ZL3e9ha6V8fhoLbBQ==}
+    hasBin: true
+    dev: false

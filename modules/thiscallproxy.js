@@ -27,6 +27,6 @@ exports.thiscallproxy = function(string){
         if(!protected)
             break;
     }
-    console.log(`Protected ${occurences} thicalls!`);
+    console.log(`Protected ${occurences} thiscalls!`);
     return thiscallproxy + "\n" + result
 }

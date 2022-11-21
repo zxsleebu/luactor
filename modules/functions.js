@@ -1,7 +1,7 @@
 var luaparse = require('luaparse');
 const { replaceRange } = require('./misc');
 exports.protect_functions = function(string){
-    console.log("Protecting functions...")
+    // console.log("Protecting functions...")
     var result = string + "";
     var functiondeclarations = [];
     luaparse.parse(string, {
@@ -15,6 +15,6 @@ exports.protect_functions = function(string){
     functiondeclarations.forEach(fun => 
         result = replaceRange(result, fun.range, `${fun.name} = function`, string)
     )
-    console.log("Protected function declarations!");
+    console.log(`Protected ${functiondeclarations.length} function declarations!`);
     return result
 }

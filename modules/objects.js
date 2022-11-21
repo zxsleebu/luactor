@@ -14,16 +14,19 @@ exports.protect_objects = function(string){
     tablecontructorskeys.forEach(key => 
         result = replaceRange(result, key.range, `["${key.name}"]`, string)
     )
-    console.log("Protected object keys declarations!");
+    console.log(`Protected ${tablecontructorskeys.length} object keys declarations!`);
     string = result;
 
+    memberindexers = 0;
     luaparse.parse(string, {
         onCreateNode: async s => {
-            if(s.type == "MemberExpression" && s.indexer == ".")
+            if(s.type == "MemberExpression" && s.indexer == "."){
+                memberindexers++
                 result = replaceRange(result, [s.identifier.range[0] - 1, s.identifier.range[1]], `["${s.identifier.name}"]`, string);
+            }
         },
         ranges: true,
     });
-    console.log("Protected object member indexers!");
+    console.log(`Protected ${memberindexers} object member indexers!`);
     return result
 }

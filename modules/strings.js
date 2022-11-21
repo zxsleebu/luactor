@@ -8,7 +8,7 @@ const stringEcnrypt = (a, b) => {
 };
 const replaceRange = (s, start, end, repl) => s.substring(0, start) + repl + s.substring(end);
 exports.protect_strings = string => {
-    console.log("Protecting strings...");
+    // console.log("Protecting strings...");
     string = string.replaceAll(/((\[\[)([\s\S]+?|)(\]\]))/g, (match, p1) => {
         return `(${p1})`
     })
@@ -40,6 +40,6 @@ exports.protect_strings = string => {
     for (i = 0; i < sorted_strings.length; i++)
         encstr += `"${sorted_strings[i]}",`
     encstr += "}\n"
-    console.log("Protected strings!");
+    console.log(`Protected ${ranges.length} strings!`);
     return encstr + decryptor_lua + result;
 }

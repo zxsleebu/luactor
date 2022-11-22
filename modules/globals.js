@@ -1,9 +1,13 @@
 var luaparse = require('luaparse');
 const { replaceRange } = require('./misc');
 exports.protect_globals = function(string){
-    // console.log("Protecting globals...")
     var result = string + "";
     var globals = [];
+    var occurences = 0;
+    const update_counter = () => {
+        process.stdout.cursorTo(0);
+        process.stdout.write(`Protected ${++occurences} globals!`);
+    }
     luaparse.parse(string, {
         onCreateNode: async s => {
             if(
@@ -15,6 +19,7 @@ exports.protect_globals = function(string){
                     root = root.base;
                 if(root?.isLocal != false) return;
                 globals.push({name: root.name, range: root.range})
+                update_counter()
             }
             if(s.type == "AssignmentStatement"){
                 s.variables.forEach(v => {
@@ -23,7 +28,7 @@ exports.protect_globals = function(string){
                         root = root.base;
                     if(root?.isLocal != false) return;
                     if(root.type == "Identifier" && root?.isLocal == false)
-                        globals.push({name: root.name, range: root.range})
+                        globals.push({name: root.name, range: root.range}), update_counter()
                 })
             }
         },
@@ -36,6 +41,6 @@ exports.protect_globals = function(string){
     for(let range in unduplicated){
         result = replaceRange(result, JSON.parse(range), `_G["${unduplicated[range]}"]`, string)
     }
-    console.log(`Protected ${globals.length} globals!`);
+    console.log("")
     return result
 }

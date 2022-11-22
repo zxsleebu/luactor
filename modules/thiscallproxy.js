@@ -6,27 +6,35 @@ exports.thiscallproxy = function(string){
     const thiscallproxy = readFileSync('./modules/thiscallproxy.lua', 'utf-8');
     var result = string + "";
     var occurences = 0;
-    while(true){
-        var protected = false;
-        luaparse.parse(string, {
-            onCreateNode: s => {
-                if(protected) return;
-                if(s.type == "CallExpression" && s.base.type == "MemberExpression" && s.base.indexer == ":"){
-                    occurences++;
-                    let range = [s.base.range[0], s.base.identifier.range[0] - 1];
-                    let base = getRange(result, range, string);
-                    let args = s.arguments.map(a => getRange(result, a.range, string)).join(", ");
-                    args = args ? ", " + args  : "";
-                    result = replaceRange(result, s.base.range, `lua__thiscall_proxy(${base}, "${s.base.identifier.name}"${args})`, string)
-                    protected = true;
-                }
-            },
-            ranges: true,
-        })
-        string = result + "";
-        if(!protected)
-            break;
+    try{
+        while(true){
+            var protected = false;
+            luaparse.parse(string, {
+                onCreateNode: s => {
+                    if(protected) return;
+                    if(s.type == "CallExpression" && s.base.type == "MemberExpression" && s.base.indexer == ":"){
+                        occurences++;
+                        let range = [s.base.range[0], s.base.identifier.range[0] - 1];
+                        let base = getRange(string, range, string);
+                        let args = getRange(string, [s.base.identifier.range[1] + 1, s.base.range[1] - 1], string);
+                        if(s.arguments.length > 0) args = ", " + args;
+                        result = replaceRange(result, s.base.range, `lua__thiscall_proxy(${base}, "${s.base.identifier.name}"${args})`, string)
+                        protected = true;
+                    }
+                },
+                ranges: true,
+            })
+            string = result + "";
+            process.stdout.cursorTo(0);
+            process.stdout.write(`Protected ${occurences} thiscalls!`);
+            if(!protected)
+                break;
+        }
     }
-    console.log(`Protected ${occurences} thiscalls!`);
+    catch(err){
+        console.log("")
+        return thiscallproxy + "\n" + result
+    }
+    console.log("")
     return thiscallproxy + "\n" + result
 }

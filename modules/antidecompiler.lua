@@ -4,7 +4,7 @@ local ptc___begging = [[cumcall fuckall sorryforgottohidepcall
     pcall(function(test)
             local ptc___begging = function() return [[
 
---! this file was protected by luactor alpha
+--! this file was protected by allah protector
 --! github.com/zxsleebu/luactor
 --! this repo may be hidden, because the obfuscator is on its early stages
 

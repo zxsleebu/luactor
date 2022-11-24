@@ -1,0 +1,12 @@
+ack	0.1904399	
+fixpoint-fact	1.3541317	
+heapsort	0.6700256	
+mandelbrot	0.1481509	
+juliaset	0.9361067	
+queen	0.6490382	
+sieve	0.1919193	
+binary	1.0237818	
+n-body	0.2237579	
+fannkuch	0.3261502	
+fasta	1.3840313	
+spectral-norm	0.0809477	

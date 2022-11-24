@@ -1,11 +1,12 @@
 var luaparse = require('luaparse');
 const { readFileSync } = require('fs');
-const { replaceRange, getRange } = require('./misc');
+const { replaceRange, getRange, logCounter } = require('./misc');
 exports.thiscallproxy = function(string){
     // console.log('Protecting thiscalls...');
     const thiscallproxy = readFileSync('./modules/thiscallproxy.lua', 'utf-8');
     var result = string + "";
     var occurences = 0;
+    const update_counter = logCounter(() => `Protected ${occurences} thiscalls!`);
     try{
         while(true){
             var protected = false;
@@ -25,16 +26,17 @@ exports.thiscallproxy = function(string){
                 ranges: true,
             })
             string = result + "";
-            process.stdout.cursorTo(0);
-            process.stdout.write(`Protected ${occurences} thiscalls!`);
+            if(occurences % 3 == 0) update_counter();
             if(!protected)
                 break;
         }
     }
     catch(err){
+        update_counter();
         console.log("")
         return thiscallproxy + "\n" + result
     }
+    update_counter();
     console.log("")
     return thiscallproxy + "\n" + result
 }

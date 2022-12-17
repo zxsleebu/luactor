@@ -1,6 +1,7 @@
 {
-  "dependencies": {
-    "date-and-time": "^2.3.1",
-    "luamin": "^1.0.4"
-  }
+    "name": "luactor",
+    "dependencies": {
+        "date-and-time": "^2.3.1",
+        "luamin": "^1.0.4"
+    }
 }

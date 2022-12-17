@@ -20,7 +20,7 @@ const compile = (code, outfile) => {
         result = scoper(result)
     }
     catch(e){
-        log(`${e.name}: ${e.message}`);
+        console.log(`${e.name}: ${e.message}`);
         writeFileSync("output-err.lua", result)
         console.log("\nerror occured. semi-compiled file saved to output-err.lua");
         return;

@@ -1,6 +1,6 @@
 {
     "name": "luactor",
-    "version": "1.0.0",
+    "version": "1.0.1",
 	"main": "main.js",
     "dependencies": {
         "date-and-time": "^2.3.1",

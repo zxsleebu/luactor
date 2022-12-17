@@ -1,9 +1,10 @@
 var luaparse = require('luaparse');
 const { readFileSync } = require('fs');
 const { replaceRange, getRange, logCounter } = require('./misc');
+const approot = require("app-root-path");
 exports.thiscallproxy = function(string){
     // console.log('Protecting thiscalls...');
-    const thiscallproxy = readFileSync('./modules/thiscallproxy.lua', 'utf-8');
+    const thiscallproxy = readFileSync(approot + '/modules/thiscallproxy.lua', 'utf-8');
     var result = string + "";
     var occurences = 0;
     const update_counter = logCounter(() => `Protected ${occurences} thiscalls!`);

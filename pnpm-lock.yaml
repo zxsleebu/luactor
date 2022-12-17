@@ -1,14 +1,21 @@
 lockfileVersion: 5.4
 
 specifiers:
+  app-root-path: ^3.1.0
   date-and-time: ^2.3.1
   luamin: ^1.0.4
 
 dependencies:
+  app-root-path: 3.1.0
   date-and-time: 2.4.1
   luamin: 1.0.4
 
 packages:
+
+  /app-root-path/3.1.0:
+    resolution: {integrity: sha512-biN3PwB2gUtjaYy/isrU3aNWI5w+fAfvHkSvCKeQGxhmYpwKFUxudR3Yya+KqVRHBmEDYh+/lTozYCFbmzX4nA==}
+    engines: {node: '>= 6.0.0'}
+    dev: false
 
   /date-and-time/2.4.1:
     resolution: {integrity: sha512-fG+ClATev+wHryqxOoGcTTegr5RhYE+tz/XHUkTQ/zvpWqQ90oOxjOhuMQ02bw87Oy9N3qBENCHHHSKdWJjgTg==}

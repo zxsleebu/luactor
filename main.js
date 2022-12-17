@@ -27,9 +27,12 @@ const compile = (code, outfile) => {
     }
 
     // log(`Writing file to ${outfile}...`)
-    writeFileSync(outfile, result)
+    var absolutePath = require('path').resolve(outfile);
+    writeFileSync(absolutePath, result)
     // log("Compiling...")
-    execSync(`${__dirname}/luajit -b "${outfile}" "${outfile}"`)
+    //set working directory
+    process.chdir(__dirname);
+    execSync(`luajit -b "${absolutePath}" "${absolutePath}"`)
     console.log("Done!");
 }
 // add cli support

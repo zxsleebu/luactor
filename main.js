@@ -29,7 +29,7 @@ const compile = (code, outfile) => {
     // log(`Writing file to ${outfile}...`)
     writeFileSync(outfile, result)
     // log("Compiling...")
-    execSync(`luajit -b "${outfile}" "${outfile}"`)
+    execSync(`${__dirname}/luajit -b "${outfile}" "${outfile}"`)
     console.log("Done!");
 }
 // add cli support

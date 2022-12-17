@@ -96,7 +96,7 @@ exports.protect_literals = string => {
     })
     update_counter_protected()
     var encrypted_string = `("${encrypted["StringLiteral"].join("X")}Z${encrypted["NumericLiteral"].join("X")}")`
-    result = readFileSync("./modules/literals.lua", "utf-8").replaceAll("@XOR_KEY@", xor_key) + result;
+    result = readFileSync(__dirname + "/literals.lua", "utf-8").replaceAll("@XOR_KEY@", xor_key) + result;
     result = `local enc_literals = {}\n` + result.replace("encrypted_string", encrypted_string)
     console.log("")
     return result;

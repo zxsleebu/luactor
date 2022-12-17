@@ -8,7 +8,7 @@ exports.antidecompiler = function(string){
     const repeat_count = 300;
     const zeroull = "(" + "0ULL and ".repeat(repeat_count) + "0ULL)";
     const oneull = "(" + "0xffffffffffffffff or ".repeat(repeat_count) + "1ULL)";
-    var antidec = readFileSync("./modules/antidecompiler.lua", "utf-8");
+    var antidec = readFileSync(__dirname + "/antidecompiler.lua", "utf-8");
     antidec = antidec.replaceAll("0ULL", zeroull)
     antidec = antidec.replaceAll("1ULL", oneull)
     antidec = antidec.replace(/@[A-Z_]+?@/g, match => {

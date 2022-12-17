@@ -1,6 +1,6 @@
 var luaparse = require('luaparse');
 const { readFileSync } = require('fs');
-const stringEcnrypt = (a, b) => {
+const stringEncrypt = (a, b) => {
     let s = [];
     for (let i = 0; i < a.length; i++)
         s.push((a.charCodeAt(i) ^ b.charCodeAt((i + 1) % b.length)).toString(16).toUpperCase())
@@ -66,7 +66,7 @@ exports.protect_literals = string => {
             if(literal.index % 3 == 0) update_counter();
             add_literal(literal, value);
             if(type == "StringLiteral" && value.length == 0) continue;
-            encrypted[type][literal.index-1] = stringEcnrypt(value, xor_key + literal.index);
+            encrypted[type][literal.index-1] = stringEncrypt(value, xor_key + literal.index);
         }
         update_counter()
         // encrypted[type] = encrypted[type].filter(a => a !== null);

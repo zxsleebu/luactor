@@ -87,7 +87,7 @@ exports.protect_literals = string => {
             encrypted[type][literal.index-1] = stringEncrypt(value, xor_key + literal.index);
         }
         update_counter()
-        // encrypted[type] = encrypted[type].filter(a => a !== null);
+        encrypted[type] = encrypted[type].filter(a => a !== null);
     }
     console.log("")
     for(let type of ["NilLiteral", "BooleanLiteral"]){

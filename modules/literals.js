@@ -1,5 +1,22 @@
 var luaparse = require('luaparse');
 const { readFileSync } = require('fs');
+const fengari = require('fengari');
+const lua = fengari.lua;
+const lauxlib = fengari.lauxlib;
+const lualib = fengari.lualib;
+const L = lauxlib.luaL_newstate();
+if (!L) throw Error("failed to create lua state");
+lualib.luaL_openlibs(L);
+const get_lua_string = (str) => {
+    if(lauxlib.luaL_loadstring(L, fengari.to_luastring(`return ${str}`)) != lua.LUA_OK)
+    throw Error("failed to load lua string");
+    if(lua.lua_pcall(L, 0, 1, 0) != lua.LUA_OK)
+        throw Error("failed to run lua code");
+    const result = lua.lua_tojsstring(L, -1);
+    lua.lua_pop(L, 1);
+    return result;
+}
+
 const stringEncrypt = (a, b) => {
     let s = [];
     for (let i = 0; i < a.length; i++)
@@ -13,20 +30,21 @@ exports.protect_literals = string => {
     var result = string + "";
     var literal_obj = {};
     var literal_index = 1;
-    const parse_literal = (s, index) => {
+    const parse_literal = (s, value) => {
+        value = value || s.value;
         if(!literal_obj[s.type]) literal_obj[s.type] = {};
         let obj = literal_obj[s.type];
-        if(!obj[s.value])
-            obj[s.value] = {
+        if(!obj[value])
+            obj[value] = {
                 index: literal_index++,
                 ranges: [],
                 type: s.type
             };
-        obj[s.value].ranges.push(s.range);
+        obj[value].ranges.push(s.range);
     }
     luaparse.parse(string, {
         onCreateNode: async s => 
-            (s.type == "StringLiteral" && s.value.length > 0) && parse_literal(s),
+            (s.type == "StringLiteral" && s.value.length > 0) && parse_literal(s, get_lua_string(s.raw)),
         ranges: true,
     })
     luaparse.parse(string, {

@@ -1,1 +1,1 @@
-print('[%z\1-\31\\"]')
+print("hello world!")

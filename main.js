@@ -8,6 +8,7 @@ const { protect_functions } = require('./modules/functions');
 const { antidecompiler } = require('./modules/antidecompiler');
 const { scoper } = require('./modules/scoper');
 const { thiscallproxy } = require('./modules/thiscallproxy');
+const { control_flow } = require('./modules/control_flow');
 const luactor = class {
     thiscallproxy = true;
     scoper = true;
@@ -17,6 +18,7 @@ const luactor = class {
     globals = true;
     functions = true;
     jit = true;
+    control_flow = true;
     /**
      * 
      * @param {Object} settings
@@ -28,6 +30,7 @@ const luactor = class {
      * @param {Boolean} settings.globals
      * @param {Boolean} settings.functions 
      * @param {Boolean} settings.jit
+     * @param {Boolean} settings.control_flow
      */
     constructor(settings){
         if(settings){
@@ -39,11 +42,14 @@ const luactor = class {
             this.globals = settings.globals ?? this.globals;
             this.functions = settings.functions ?? this.functions;
             this.jit = settings.jit ?? this.jit;
+            this.control_flow = settings.control_flow ?? this.control_flow;
         }
     }
     compile = (code, outfile) => {
         var result = code;
         try{
+            // if(this.control_flow)
+            //     result = control_flow(result);
             if(this.functions)
                 result = protect_functions(result)
             if(this.globals)

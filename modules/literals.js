@@ -16,12 +16,21 @@ const get_lua_string = (str) => {
     lua.lua_pop(L, 1);
     return result;
 }
-
+const getAlphabetRange = (a, b) => {
+    let s = [];
+    for (let i = a.charCodeAt(0); i <= b.charCodeAt(0); i++)
+        s.push(String.fromCharCode(i));
+    return s;
+}
+const splitChars = getAlphabetRange("G", "T");
 const stringEncrypt = (a, b) => {
     let s = [];
-    for (let i = 0; i < a.length; i++)
-        s.push((a.charCodeAt(i) ^ b.charCodeAt((i + 1) % b.length)).toString(16).toUpperCase())
-    return s.join("G")
+    for (let i = 0; i < a.length; i++){
+        s.push((a.charCodeAt(i) ^ b.charCodeAt((i + 1) % b.length)).toString(16).toUpperCase());
+        if(i != a.length - 1)
+            s.push(splitChars[Math.floor(Math.random() * splitChars.length)]);
+    }
+    return s.join("");
 };
 const { replaceRange, logCounter } = require('./misc');
 exports.protect_literals = string => {

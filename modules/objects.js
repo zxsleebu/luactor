@@ -1,10 +1,10 @@
 var luaparse = require('luaparse');
 const { replaceRange, logCounter } = require('./misc');
-exports.protect_objects = function(string){
+exports.protect_objects = function(string, log){
     var result = string + "";
     var tablecontructorskeys = [];
     var occurences = 0;
-    const update_counter = logCounter(() => `Protected ${occurences} object keys declarations!`);
+    const update_counter = log ? logCounter(() => `Protected ${occurences} object keys declarations!`) : () => {};
     luaparse.parse(string, {
         onCreateNode: async s => {
             if(s.type == "TableKeyString"){
@@ -21,21 +21,23 @@ exports.protect_objects = function(string){
         result = replaceRange(result, key.range, `["${key.name}"]`, string)
     )
     string = result;
-    console.log("")
+    if(log)
+        console.log("")
 
     var memberindexers = 0;
-    const update_counter_indexers = logCounter(() => `Protected ${memberindexers} object member indexers!`);
+    const update_counter_indexers = log ? logCounter(() => `Protected ${memberindexers} object member indexers!`) : () => {};
     luaparse.parse(string, {
         onCreateNode: async s => {
             if(s.type == "MemberExpression" && s.indexer == "."){
                 memberindexers++
-                if(memberindexers % 3 == 0) update_counter_indexers();
+                if(memberindexers % 50 == 0) update_counter_indexers();
                 result = replaceRange(result, [s.identifier.range[0] - 1, s.identifier.range[1]], `["${s.identifier.name}"]`, string);
             }
         },
         ranges: true,
     });
     update_counter_indexers()
-    console.log("")
+    if(log)
+        console.log("")
     return result
 }

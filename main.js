@@ -9,6 +9,8 @@ const { antidecompiler } = require('./modules/antidecompiler');
 const { scoper } = require('./modules/scoper');
 const { thiscallproxy } = require('./modules/thiscallproxy');
 const { control_flow } = require('./modules/control_flow');
+const { post_encrypt } = require('./modules/post_encrypt');
+const { security } = require('./modules/security');
 const luactor = class {
     thiscallproxy = true;
     scoper = true;
@@ -17,8 +19,9 @@ const luactor = class {
     objects = true;
     globals = true;
     functions = true;
+    security = true;
     jit = true;
-    control_flow = true;
+    control_flow = false;
     /**
      * 
      * @param {Object} settings
@@ -31,6 +34,7 @@ const luactor = class {
      * @param {Boolean} settings.functions 
      * @param {Boolean} settings.jit
      * @param {Boolean} settings.control_flow
+     * @param {Boolean} settings.security
      */
     constructor(settings){
         if(settings){
@@ -43,23 +47,29 @@ const luactor = class {
             this.functions = settings.functions ?? this.functions;
             this.jit = settings.jit ?? this.jit;
             this.control_flow = settings.control_flow ?? this.control_flow;
+            this.security = settings.security ?? this.security;
         }
     }
     compile = (code, outfile) => {
         var result = code;
         try{
-            // if(this.control_flow)
-            //     result = control_flow(result);
+            if(this.thiscallproxy)
+                result = thiscallproxy(result)
             if(this.functions)
                 result = protect_functions(result)
             if(this.globals)
                 result = protect_globals(result)
             if(this.objects)
                 result = protect_objects(result)
-            if(this.thiscallproxy)
-                result = thiscallproxy(result)
-            if(this.literals)
-                result = protect_literals(result)
+            if(this.literals){
+                var [key, encrypted_string, encrypt_fn, script] = protect_literals(result)
+                encrypt_fn = this.security ? security(encrypt_fn) : encrypt_fn
+                var encrypted_fn = post_encrypt(encrypt_fn, encrypted_string, key)
+                result = encrypted_fn + script
+            }
+            else if(this.security){
+                result = security(result)
+            }
             if(this.antidecompiler)
                 result = antidecompiler(result)
             if(this.scoper)
@@ -84,11 +94,12 @@ const luactor = class {
         console.log("Done!");
     }
 }
-// add cli support
+
 if(process.argv.length == 4){
     console.log(`Reading file ${process.argv[2]}...`);
     var result = readFileSync(process.argv[2], 'utf8');
     var compiler = new luactor();
     compiler.compile(result, process.argv[3]);
 }
+
 module.exports = luactor;

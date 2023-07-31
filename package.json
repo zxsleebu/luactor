@@ -5,6 +5,7 @@
     "dependencies": {
         "date-and-time": "^2.3.1",
         "fengari": "^0.1.4",
-        "luamin": "^1.0.4"
+        "luamin": "^1.0.4",
+        "luaparse": "^0.2.1"
     }
 }

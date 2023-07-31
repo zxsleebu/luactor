@@ -1,11 +1,12 @@
 var luaparse = require('luaparse');
 const { replaceRange, logCounter, getRange } = require('./misc');
-exports.protect_functions = function(string){
+exports.protect_functions = function(string, log){
+    if(log === undefined) log = true;
     // console.log("Protecting functions...")
     var result = string + "";
     var functiondeclarations = [];
     var occurences = 0;
-    const update_counter = logCounter(() => `Protected ${occurences} function declarations!`);
+    const update_counter = log ? logCounter(() => `Protected ${occurences} function declarations!`) : () => {};
     luaparse.parse(string, {
         onCreateNode: async s => {
             if(s.type == "FunctionDeclaration" && s.identifier){
@@ -35,6 +36,7 @@ exports.protect_functions = function(string){
             result = replaceRange(result, [pos, pos + 1], `(self${comma}`, string)
         }
     })
-    console.log("")
+    if(log)
+        console.log("")
     return result
 }

@@ -1,0 +1,6 @@
+{
+    "Lua.diagnostics.globals": [
+        "ffi",
+        "enc_literals"
+    ]
+}

@@ -51,11 +51,11 @@ local check = function()
     if is_object_metatable_changed(debug, false) then return false end
     if are_detecting_function_hooked() then return false end
     if are_objs_changed({
-        client, globalvars, debug, engine, io, ffi, os, string, jit, table, bit, coroutine, jit,
+        debug, io, ffi, os, string, jit, table, bit, coroutine, jit,
         {
             pcall, xpcall,
             loadstring, load, loadfile, dofile,
-            unpack, select, next, ipairs, assert, error, print,
+            unpack, select, next, ipairs, assert, error,
             getmetatable, setmetatable,
             setfenv, getfenv,
             rawget, rawset, rawequal, rawlen,
@@ -64,8 +64,11 @@ local check = function()
         }
     }) then return false end
     check_started = true
-    if are_objs_changed({package}, true) then return false end
+    if are_objs_changed({package, client, globalvars, engine, {print}}, true) then return false end
     if is_script_required() then return false end
     return true
 end
-if not check() or not check_started then error("hello") end
+if not check() or not check_started then
+    while true do end
+    error("attempt to index a nil value")
+end

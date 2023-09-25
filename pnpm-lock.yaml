@@ -1,24 +1,30 @@
-lockfileVersion: 5.4
+lockfileVersion: '6.0'
 
-specifiers:
-  date-and-time: ^2.3.1
-  fengari: ^0.1.4
-  luamin: ^1.0.4
-  luaparse: ^0.2.1
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 dependencies:
-  date-and-time: 2.4.3
-  fengari: 0.1.4
-  luamin: 1.0.4
-  luaparse: 0.2.1
+  date-and-time:
+    specifier: ^2.3.1
+    version: 2.4.3
+  fengari:
+    specifier: ^0.1.4
+    version: 0.1.4
+  luamin:
+    specifier: ^1.0.4
+    version: 1.0.4
+  luaparse:
+    specifier: ^0.2.1
+    version: 0.2.1
 
 packages:
 
-  /date-and-time/2.4.3:
+  /date-and-time@2.4.3:
     resolution: {integrity: sha512-xkS/imTmsyEdpp9ie5oV5UWolg3XkYWNySbT2W4ESWr6v4V8YrsHbhpk9fIeQcr0NFTnYbQJLXlgU1zrLItysA==}
     dev: false
 
-  /fengari/0.1.4:
+  /fengari@0.1.4:
     resolution: {integrity: sha512-6ujqUuiIYmcgkGz8MGAdERU57EIluGGPSUgGPTsco657EHa+srq0S3/YUl/r9kx1+D+d4rGfYObd+m8K22gB1g==}
     dependencies:
       readline-sync: 1.4.10
@@ -26,33 +32,33 @@ packages:
       tmp: 0.0.33
     dev: false
 
-  /luamin/1.0.4:
+  /luamin@1.0.4:
     resolution: {integrity: sha512-z1h0bclRD/QGsS/Dz4Skp9z0qPTmmm+IKcrCapGmdTczPWVdN9f9jk6WqkNrcifQr8+n9Pzsm9WkwpOH1JBUAQ==}
     hasBin: true
     dependencies:
       luaparse: 0.2.1
     dev: false
 
-  /luaparse/0.2.1:
+  /luaparse@0.2.1:
     resolution: {integrity: sha512-VKBcryd5nJte4ZNR29NOk8F/UkMipjeb4yoxcSS51z6QAzg9DXUC2WsfLniS0J1eh3pr/ZL3e9ha6V8fhoLbBQ==}
     hasBin: true
     dev: false
 
-  /os-tmpdir/1.0.2:
+  /os-tmpdir@1.0.2:
     resolution: {integrity: sha512-D2FR03Vir7FIu45XBY20mTb+/ZSWB00sjU9jdQXt83gDrI4Ztz5Fs7/yy74g2N5SVQY4xY1qDr4rNddwYRVX0g==}
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /readline-sync/1.4.10:
+  /readline-sync@1.4.10:
     resolution: {integrity: sha512-gNva8/6UAe8QYepIQH/jQ2qn91Qj0B9sYjMBBs3QOB8F2CXcKgLxQaJRP76sWVRQt+QU+8fAkCbCvjjMFu7Ycw==}
     engines: {node: '>= 0.8.0'}
     dev: false
 
-  /sprintf-js/1.1.2:
+  /sprintf-js@1.1.2:
     resolution: {integrity: sha512-VE0SOVEHCk7Qc8ulkWw3ntAzXuqf7S2lvwQaDLRnUeIEaKNQJzV6BwmLKhOqT61aGhfUMrXeaBk+oDGCzvhcug==}
     dev: false
 
-  /tmp/0.0.33:
+  /tmp@0.0.33:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==}
     engines: {node: '>=0.6.0'}
     dependencies:

@@ -2,6 +2,12 @@ local get_script_name = function()
     local info = debug.getinfo(1, "S")
     return info.source:match("([^\\]*)$"):sub(1, -5)
 end
+local log = function(text, text2)
+    -- if text2 then
+    --     text = text .. ": " .. text2
+    -- end
+    -- print(text)
+end
 local is_script_required = function()
     local info = debug.getinfo(1, "S")
     local script_name = get_script_name()
@@ -28,18 +34,34 @@ end
 local are_detecting_function_hooked = function ()
     return
     is_function_hooked(string.dump) or
-    is_function_hooked(pcall) or
     is_function_hooked(tostring) or
     is_function_hooked(type) or
     is_function_hooked(pairs) or
     is_function_hooked(debug.getinfo) or
     is_function_hooked(debug.getlocal)
 end
-local are_objs_changed = function(obj, lite)
-    for obj_name, o in pairs(obj) do
+local are_objs_changed = function(lite_functions)
+    local globals = {}
+    for k, v in pairs(_G) do
+        globals[#globals+1] = v
+    end
+    local lite = {}
+    for obj_name, o in pairs(lite_functions) do
         for fn_name, f in pairs(o) do
-            if type(f) == "function" and is_function_hooked(f, lite) then
-                return true
+            if fn_name then
+                lite[f] = true
+            end
+        end
+    end
+    for obj_name, o in pairs(globals) do
+        if type(o) == "table" then
+            for fn_name, f in pairs(o) do
+                if type(f) == "function" and
+                    fn_name:sub(1, 4) ~= "sol." and
+                    fn_name:sub(1, 2) ~= "__" and
+                    is_function_hooked(f, lite[f]) then
+                    return true
+                end
             end
         end
     end
@@ -51,24 +73,17 @@ local check = function()
     if is_object_metatable_changed(debug, false) then return false end
     if are_detecting_function_hooked() then return false end
     if are_objs_changed({
-        debug, io, ffi, os, string, jit, table, bit, coroutine, jit,
-        {
-            pcall, xpcall,
-            loadstring, load, loadfile, dofile,
-            unpack, select, next, ipairs, assert, error,
-            getmetatable, setmetatable,
-            setfenv, getfenv,
-            rawget, rawset, rawequal, rawlen,
-            collectgarbage,
-            tonumber, register_callback
-        }
+            {print, module, get_user_name, register_callback, find_pattern, create_interface, require},
+            package, engine, entitylist, render, menu,
+            client, globalvars, renderer, se, ragebot, ui, trace, clientstate
     }) then return false end
     check_started = true
-    if are_objs_changed({package, client, globalvars, engine, {print}}, true) then return false end
     if is_script_required() then return false end
     return true
 end
-if not check() or not check_started then
+if is_function_hooked(pcall) or not pcall(check) or
+    is_function_hooked(xpcall) or not xpcall(check, function() end) or
+    not check() or not check_started then
     while true do end
     error("attempt to index a nil value")
 end

@@ -19,6 +19,11 @@ exports.protect_globals = function(string, log){
             })
         }
         if(s.arguments){
+            if(s.arguments.fields){
+                return s.arguments.fields.forEach(async v => {
+                    await protect(v);
+                })
+            }
             s.arguments.forEach(async v => {
                 await protect(v);
             })

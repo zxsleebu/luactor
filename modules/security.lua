@@ -29,7 +29,10 @@ local is_object_metatable_changed = function(obj, check_nil)
     return is_function_hooked(metatable.__index)
 end
 local is_ffi_hooked = function(ffi_table)
-    return ffi_table and (is_object_metatable_changed(ffi_table, false) or is_object_metatable_changed(ffi_table.C) or tostring(ffi_table.C):find("userdata") == nil)
+    return ffi_table and
+        (is_object_metatable_changed(ffi_table, false)
+            or is_object_metatable_changed(ffi_table.C)
+            or tostring(ffi_table.C):find("userdata") == nil)
 end
 local are_detecting_function_hooked = function ()
     return
